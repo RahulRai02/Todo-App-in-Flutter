@@ -1,9 +1,15 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:mytodo/constants/colors.dart';
+import 'package:mytodo/model/todo.dart';
 import 'package:mytodo/search_box.dart';
+import 'package:mytodo/todo_item.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key});
+  Home({super.key});
+
+  final todoListStat = Todo.todoListItems();
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +41,11 @@ class Home extends StatelessWidget {
         child: Column(
           // ignore: prefer_const_literals_to_create_immutables
           children: [
-            // ignore: prefer_const_constructors
             searchBox(),
             Expanded(
               child: ListView(
                 children: [
                   Container(
-                    // ignore: prefer_const_constructors
                     margin: EdgeInsets.only(
                       top: 50,
                       bottom: 20,
@@ -53,10 +57,16 @@ class Home extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                  )
+                  ),
+                  for (Todo todo in todoListStat)
+                    ToDoItem(
+                      note: todo,
+                    ),
+
+                  // ToDoItem(),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
